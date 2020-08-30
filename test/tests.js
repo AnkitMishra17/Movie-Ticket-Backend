@@ -23,24 +23,24 @@ describe("Validate Tickets", function () {
     });
   });
   it("check if the ticket is expired or not, diff is >= 8 hours", function (done) {
-      ticketDetails.find({}).then((result)=>{
-        let time = result[0].timing;
-        let cl = time.split(" ")[1];
-        time = time.split(" ")[0].split(":");
-        let hrs = parseInt(time[0]);
-        if (cl === "PM") {
-          hrs += 12;
-        }
-        let b = moment([hrs], ["HH"]).fromNow(true);
-        let diff = b.split(" ")[0];
-        if(diff >= 8){
-            assert(diff >= 8)
-            done();
-        }else{
-            assert(diff <= 8)
-            done();
-        }
-      })
+    ticketDetails.find({}).then((result) => {
+      let time = result[0].timing;
+      let cl = time.split(" ")[1];
+      time = time.split(" ")[0].split(":");
+      let hrs = parseInt(time[0]);
+      if (cl === "PM") {
+        hrs += 12;
+      }
+      let b = moment([hrs], ["HH"]).fromNow(true);
+      let diff = b.split(" ")[0];
+      if (diff >= 8) {
+        assert(diff >= 8);
+        done();
+      } else {
+        assert(diff <= 8);
+        done();
+      }
+    });
   });
 });
 

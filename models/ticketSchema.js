@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const ticketSchema = new Schema({
   movie: {
     type: String,
-    required: [true, "Please select a movie"],
+    required: "Please select a movie",
   },
   timing:{
     type: String,
@@ -17,11 +17,11 @@ const ticketSchema = new Schema({
   customerInfo:{
       name:{
           type: String,
-          required:[true, 'Please enter your name']
+          required:'Please enter your name'
       },
       phoneNo:{
           type: Number,
-          required:[true, 'Phone number is mandatory']
+          required:'Phone number is mandatory'
       },
       ticketsBooked:{
         type: Number,

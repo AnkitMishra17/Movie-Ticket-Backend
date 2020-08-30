@@ -9,7 +9,7 @@ mongoose.connect(
   "mongodb://testuser:test123@ds217092.mlab.com:17092/ticket-booking",
   { useNewUrlParser: true, useUnifiedTopology: true,useFindAndModify: false },
   () => {
-    console.log("connection established");
+    console.log("Connection established");
   }
 );
 

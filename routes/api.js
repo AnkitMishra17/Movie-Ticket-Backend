@@ -3,13 +3,13 @@ const moment = require("moment");
 const router = express.Router();
 const tickets = require("../models/ticketSchema");
 const timings = require("../models/showSchema");
-const { Query } = require("mongoose");
 
 router.get("/validatetickets", (req, res) => {
   tickets.find({}).then((data) => {
-    res.send(data);
     data.forEach(function (message) {
       let time = message.timing;
+      let ticketbooked = message.customerInfo.ticketsBooked;
+      let query = { movieName: message.movie, timing: message.timing };
       let cl = time.split(" ")[1];
       time = time.split(" ")[0].split(":");
       let hrs = parseInt(time[0]);
@@ -19,8 +19,28 @@ router.get("/validatetickets", (req, res) => {
       let b = moment([hrs], ["HH"]).fromNow(true);
       let diff = b.split(" ")[0];
       if (diff >= 8) {
-        tickets.find({ _id: message._id }).then((data) => {
-          tickets.findByIdAndUpdate({ _id: message._id }, { expired: true });
+        tickets.find({ _id: message._id }).then(() => {
+          tickets
+            .findByIdAndUpdate({ _id: message._id }, { expired: true })
+            .then(() => {
+              tickets.findOneAndDelete({ expired: true }).then((data) => {
+                res.send({
+                  message: `Following ticket has been expired and now deleted`,
+                  data,
+                });
+                timings.find(query).then((data) => {
+                  let updateticketcount = data[0].available;
+                  let sum = updateticketcount + ticketbooked;
+                  timings
+                    .findOneAndUpdate(query, {
+                      available: sum,
+                    })
+                    .then((dat) => {
+                      console.log(dat);
+                    });
+                });
+              });
+            });
         });
       }
     });
@@ -35,6 +55,12 @@ router.get("/bookingdetails/:id", (req, res) => {
 
 router.get("/viewshows/:time", (req, res) => {
   timings.find({ timing: req.params.time }).then((data) => {
+    res.send(data);
+  });
+});
+
+router.post("/addshows", (req, res) => {
+  timings.create(req.body).then((data) => {
     res.send(data);
   });
 });
@@ -95,7 +121,10 @@ router.put("/updatebooking/:id", (req, res) => {
                   })
                   .then((load) => {
                     tickets.findById({ _id: req.params.id }).then((data) => {
-                      res.send(data);
+                      res.send({
+                        message: `Booking slot successfully changed to ${req.body.timing}`,
+                        data,
+                      });
                     });
                   });
               });
@@ -112,25 +141,15 @@ router.put("/updatebooking/:id", (req, res) => {
 
 router.delete("/cancelbooking/:id", (req, res) => {
   tickets.findByIdAndDelete({ _id: req.params.id }).then((data) => {
-    res.send(data);
+    res.send({ message: "Booking successfully cancelled", data });
     let ticketbooked = data.customerInfo.ticketsBooked;
     let query = { movieName: data.movie, timing: data.timing };
     timings.findOne(query).then((data) => {
       let remaining = data.available;
-      timings
-        .findOneAndUpdate(query, {
-          available: remaining + ticketbooked,
-        })
-        .then((data) => {
-          res.send(data);
-        });
+      timings.findOneAndUpdate(query, {
+        available: remaining + ticketbooked,
+      });
     });
-  });
-});
-
-router.post("/addtimings", (req, res) => {
-  timings.create(req.body).then((data) => {
-    res.send(data);
   });
 });
 
