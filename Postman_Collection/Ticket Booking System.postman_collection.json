@@ -1,0 +1,221 @@
+{
+	"info": {
+		"_postman_id": "0a64a7f1-26ac-4eef-8771-27e5e004e3e5",
+		"name": "Ticket Booking System",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET",
+			"item": [
+				{
+					"name": "Booking Details / Customer Info",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/bookingdetails/5f4c1ff91d26915bece1a020",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"bookingdetails",
+								"5f4c1ff91d26915bece1a020"
+							]
+						},
+						"description": "An endpoint to view the customer’s details based on the ticket id."
+					},
+					"response": []
+				},
+				{
+					"name": "View Shows",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/viewshows/1:30 PM",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"viewshows",
+								"1:30 PM"
+							]
+						},
+						"description": "An endpoint to view all the shows for a particular time."
+					},
+					"response": []
+				},
+				{
+					"name": "Validate Tickets",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/validatetickets",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"validatetickets"
+							]
+						},
+						"description": "Check if tickets are expired or not, if they are delete them"
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "POST",
+			"item": [
+				{
+					"name": "Add Shows",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"movieName\": \"Tenet\",\r\n    \"timing\": \"10:30 AM\",\r\n    \"available\": 20\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/addshows",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"addshows"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Book Tickets",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": " {\r\n    \"movie\": \"Watchmen\",\r\n    \"timing\": \"4:30 PM\",\r\n    \"customerInfo\": {\r\n    \"name\": \"Manan\",\r\n    \"phoneNo\": 783278752,\r\n    \"ticketsBooked\": 3\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/bookticket",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"bookticket"
+							]
+						},
+						"description": "An endpoint to book a ticket using a user’s name, phone number, and timings."
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "DELETE",
+			"item": [
+				{
+					"name": "Cancel Booking",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"movie\": \"Watchmen\",\r\n    \"timing\": \"11:30 AM\",\r\n    \"customerInfo\": {\r\n        \"name\": \"Tammy\",\r\n        \"phoneNo\": 8774623231,\r\n        \"ticketsBooked\": 4\r\n    }\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/cancelbooking/5f4c234e29921a2dd8e4bde0",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"cancelbooking",
+								"5f4c234e29921a2dd8e4bde0"
+							]
+						},
+						"description": "Cancelling/Deleting Tickets based on the id."
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "UPDATE",
+			"item": [
+				{
+					"name": "Update Timing",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"timing\":\"9:30 PM\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/updatebooking/5f4c23ec29921a2dd8e4bde1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"updatebooking",
+								"5f4c23ec29921a2dd8e4bde1"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
