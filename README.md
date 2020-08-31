@@ -36,3 +36,25 @@
 | movieName | timing | available |
 | ------ | ------ | ------ |  
 | String | String | Number |
+
+## Postman Screenshots
+- Add Shows 
+<img src="./postman-screenshots/addShows.JPG" height="200">
+
+- Book Ticket
+<img src="./postman-screenshots/bookTicket.JPG" height="200">
+
+- Booking Details
+<img src="./postman-screenshots/bookingDetails.JPG" height="200">
+
+- View Shows
+<img src="./postman-screenshots/viewShows.JPG" height="200">
+
+- Update Booking
+<img src="./postman-screenshots/updateBooking.JPG" height="200">
+
+- Cancel Booking
+<img src="./postman-screenshots/CancelBooking.JPG" height="200">
+
+- Validate Tickets
+<img src="./postman-screenshots/validateTickets.JPG" height="200">
