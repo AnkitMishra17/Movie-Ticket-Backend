@@ -23,6 +23,7 @@
  npm install
 ```
 - And you're good to go, database is accessible so feel free to try it out on your machine.
+- For manual testing purposes, postman collection is in the folder "Postman_Collection".
 - Also test suites for basic endpoints are added. To run them write,
 ```sh
  npm run test
